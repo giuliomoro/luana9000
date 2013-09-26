@@ -1,0 +1,16 @@
+body{
+	font-family: "Helvetica";
+}
+#cycler>div{/*do not use display or position or z-index attribute*/
+	padding: 30px;
+	width: 600px;
+	min-height: 400px;
+	text-align: center;
+	border-radius: 20px;
+	font-size: 80px;
+	background-color: white;
+}
+
+#cycler{/*do not use position attribute*/
+	width:660px;
+}
