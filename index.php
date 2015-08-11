@@ -36,11 +36,17 @@ var fadeTime=0;
 var interval=150;
 var intervalHandle;
 var previousDivClass="";
+var timestamp=0;
 function updateMyContent(){
-		$('#refreshData').load("helpers/update.php",function(){
-			// alert("loaded update.php");
-			$.getScript("js/update.js.php",function(){
-				// alert("gotscriptupdate.js.php");
+		// alert("firs here "+timestamp)
+		// $('#refreshData').load("helpers/update.php?timestamp="+timestamp,function(){
+			$.getScript("helpers/update.php?timestamp="+timestamp,function(){
+				// alert("gotscriptupdate.js.php"+
+						// "\ntimestamp: "+timestamp+
+						// "\nactiveDiv: "+activeDiv+
+						// "\nfadeTime: "+fadeTime+
+						// "\nactiveDivClass: "+activeDivClass);
+				//TODO: destroy previousDiv
 				if (previousDiv==activeDiv) {
 					// document.getElementById("debug").innerHTML+=("return "+activeDiv+" "+previousDiv+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"); 
 					intervalHandle=setTimeout("updateMyContent();", interval );
@@ -50,7 +56,7 @@ function updateMyContent(){
 				activeDivObj.addClass(activeDivClass);
 				activeDivObj.css({'z-index':2, "display":"block"});
 				// verticalCenter(activeDivObj);
-				if (previousDivObj!=undefined){
+				if (previousDivObj!==undefined){
 					// alert ("changing");
 					//Should multiple updates happen in the database while stopped, only the latest one will be considered.
 					previousDivObj.fadeOut(fadeTime,function(){
@@ -73,9 +79,9 @@ function updateMyContent(){
 				}
 			}
 			)
-		});
+		// });
 	}
-setTimeout("updateMyContent();", 0);
+setTimeout("updateMyContent();", 200);
 </script>
 
 
