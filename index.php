@@ -13,12 +13,18 @@
 <div style="color: black; background: white; font-size: 40px">Devi attivare Javascript per visualizzare correttamente questa pagina.</div>
 </noscript>
 <?php
+
+$temporaryAttribute='data-use-once';
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'parser.php');
-$query="SELECT id,content FROM scenes WHERE 1";
+$query="SELECT id,content,temporary FROM scenes WHERE 1";
 $resource=mysql_query($query,$link);
+
 while ($assoc=mysql_fetch_assoc($resource)){
 	echo '
-	<div id="div'.$assoc['id'].'"><span style="font-size: 0"></span>	
+	<div id="div'.$assoc['id'].'" ';
+	if($assoc['temporary']==true)
+		echo $temporaryAttribute;
+	echo '><span style="font-size: 0"></span>	
 		'.tagparse($assoc['content']).'
 	</div>';
 }
@@ -28,6 +34,7 @@ while ($assoc=mysql_fetch_assoc($resource)){
 <div id="debug"></div>
 <script language="JavaScript">
 $.support.cors = true;
+var temporaryAttribute="<?php echo $temporaryAttribute ?>";
 var activeDiv=0;
 var previousDiv;
 var previousDivObj;
@@ -58,12 +65,16 @@ function updateMyContent(){
 						// "\nactiveDiv: "+activeDiv+
 						// "\nfadeTime: "+fadeTime+
 						// "\nactiveDivClass: "+activeDivClass);
-				//TODO: destroy previousDiv
-				if (previousDiv==activeDiv) { //we barely care about this case, when 
+				if (previousDiv==activeDiv) { //we barely care about this case, when long polling is enabled
 					// document.getElementById("debug").innerHTML+=("return "+activeDiv+" "+previousDiv+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"); 
 					intervalHandle=setTimeout("updateMyContent();", updateMyContentInterval );
 					return;
 				}
+				// if(activeDivObj.is(temporaryAttribute)){
+				//TODO: destroy previousDiv
+					// alert("destroy");
+				
+				// }
 				activeDivObj=$('#div'+activeDiv);
 				activeDivObj.addClass(activeDivClass);
 				activeDivObj.css({'z-index':2, "display":"block"});
