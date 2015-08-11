@@ -2,3 +2,5 @@
 *.jpeg
 *.png
 *.gif
+*.exe
+helpers/data.txt
