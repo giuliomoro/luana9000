@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.DIRECTORY_SEPARATOR.'dbconnect.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'dbconnect.php');
 $table="requests";
 
 $query='SELECT requests.id, scene_id, fadetime, class

@@ -1,0 +1,55 @@
+body{
+	background:#000000;
+	font-family: "Helvetica";
+}
+#refreshData{display:none;}
+#cycler{
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+#cycler>div{
+	width: 640px;
+	height: 360px;
+	background: #000000;
+	margin: 0 auto;
+	z-index: 1;
+	min-height: 360px;
+	background-color: #000000;	
+	display:none;
+	margin: 0 auto;
+	width: 640px;
+	height: 360px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -180px;
+	margin-left: -320px;
+	padding: 0px;
+}
+.cit, .author, .source, .autdesc, .title, .message{
+	display: block;
+}
+.title{
+	font-size: 50px;
+	font-weight: bold;
+}
+.cit{
+	font-size: 40px;
+	font-weight: bold;
+}
+.author{
+	font-size: 30px;
+	font-weight: bold;
+}
+.message{
+	font-size: 50px;
+	font-weight: italic;
+}
+.source, .autdesc{
+	display: block;
+	font-size: 30px;
+	font-variant: small-caps;
+}
+
+div#debug{margin-top:100px;}

@@ -1,3 +1,3 @@
 <?php
-	require(__DIR__.DIRECTORY_SEPARATOR."get.php");
+	require(dirname(__FILE__).DIRECTORY_SEPARATOR."get.php");
 ?>

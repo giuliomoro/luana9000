@@ -1,7 +1,7 @@
 <?php
 $table="scenes";
 
-require_once(__DIR__.DIRECTORY_SEPARATOR.'dbconnect.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'dbconnect.php');
 if ($value=$_GET['value'])
 	$query="UPDATE $table SET value='$value' WHERE id=1";
 elseif ($active=$_GET['active'])
