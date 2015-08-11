@@ -37,7 +37,7 @@ $.support.cors = true;
 var temporaryAttribute="<?php echo $temporaryAttribute ?>";
 var activeDiv=0;
 var previousDiv;
-var previousDivObj;
+var previousDivObj=$("the non existing object");
 var activeDivObj;
 var fadeTime=0;
 var intervalHandle;
@@ -70,40 +70,31 @@ function updateMyContent(){
 					intervalHandle=setTimeout("updateMyContent();", updateMyContentInterval );
 					return;
 				}
-				// if(activeDivObj.is(temporaryAttribute)){
-				//TODO: destroy previousDiv
-					// alert("destroy");
-				
-				// }
+				if(previousDivObj.is("["+temporaryAttribute+"]")){
+					previousDivObj.remove();
+				}
 				activeDivObj=$('#div'+activeDiv);
 				activeDivObj.addClass(activeDivClass);
 				activeDivObj.css({'z-index':2, "display":"block"});
 				// verticalCenter(activeDivObj);
-				if (previousDivObj!==undefined){ 
-					// alert ("changing");
-					//Should multiple updates happen in the server, only the latest will be considered.
-					previousDivObj.fadeOut(fadeTime,function(){
-						previousDivObj.css({"z-index":1, "display":"none"});
-						// alert(" "+previousDivClass);
-						previousDivObj.removeClass(previousDivClass);
-						activeDivObj.css({'z-index':3, "display":"block"});
-						previousDivObj=activeDivObj;
-						previousDivClass=activeDivClass;
-						previousDiv=activeDiv;
-						intervalHandle=setTimeout("updateMyContent();", updateMyContentInterval );
-					});
-				}
-				else{ //first call ! 
-					previousDiv=activeDiv;
-					previousDivObj=activeDivObj;
-					previousDivClass=activeDivClass;
-					activeDivObj.css({'z-index':3, "display":"block"});
-					intervalHandle=setTimeout("updateMyContent();", updateMyContentInterval );
-				}
+				//Should multiple updates happen in the server, only the latest will be considered.
+				if(previousDivObj.length!=0)
+					previousDivObj.fadeOut(fadeTime, fadeOutCallback);
+				else fadeOutCallback();
 			})
 		// });
 	}
 setTimeout("updateMyContent();", 200);
+
+function fadeOutCallback(){
+	previousDivObj.css({"z-index":1, "display":"none"});
+	previousDivObj.removeClass(previousDivClass);
+	activeDivObj.css({'z-index':3, "display":"block"});
+	previousDivObj=activeDivObj;
+	previousDivClass=activeDivClass;
+	previousDiv=activeDiv;
+	intervalHandle=setTimeout("updateMyContent();", updateMyContentInterval+fadeTime );//start the timeout after the fade ends.
+}
 </script>
 
 
