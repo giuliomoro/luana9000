@@ -1,7 +1,7 @@
 <html>
 <head>
 <?php require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'dbconnect.php');?>
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/align.js"></script>
 <link rel="stylesheet" href="css/default.css?md5=<?php echo md5('css/default.css')?>" type="text/css" />
 <link rel="stylesheet" href="css/cycler.css" type="text/css" />
@@ -40,7 +40,7 @@ var timestamp=0;
 function updateMyContent(){
 		// alert("firs here "+timestamp)
 		// $('#refreshData').load("helpers/update.php?timestamp="+timestamp,function(){
-			$.getScript("helpers/update.php?timestamp="+timestamp,function(){
+			$.getScript("helpers/update.php?timestamp="+timestamp,function(data, textStatus, jqxhr){
 				// alert("gotscriptupdate.js.php"+
 						// "\ntimestamp: "+timestamp+
 						// "\nactiveDiv: "+activeDiv+
