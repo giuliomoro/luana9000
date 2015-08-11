@@ -33,32 +33,44 @@ var previousDiv;
 var previousDivObj;
 var activeDivObj;
 var fadeTime=0;
-var interval=150;
 var intervalHandle;
+var updateMyContentInterval=200; //milliseconds
+var ajaxLongPollingTimeout=20000; //milliseconds
 var previousDivClass="";
 var timestamp=0;
 function updateMyContent(){
 		// alert("firs here "+timestamp)
 		// $('#refreshData').load("helpers/update.php?timestamp="+timestamp,function(){
-			$.getScript("helpers/update.php?timestamp="+timestamp,function(data, textStatus, jqxhr){
+			$.ajax({
+				url: "helpers/update.php?timestamp="+timestamp,
+				dataType: "text",
+				timeout: ajaxLongPollingTimeout
+			})
+			.fail(function( jqxhr, settings, exception ){ //requires jQuery>=1.5
+				//if it fails, just keep going. Prudentially set timestamp to 0, so to force reload activeDiv
+				timestamp=0;
+				setTimeout("updateMyContent();", updateMyContentInterval);
+			})
+			.done(function(str) {
+				$.globalEval(str);
 				// alert("gotscriptupdate.js.php"+
 						// "\ntimestamp: "+timestamp+
 						// "\nactiveDiv: "+activeDiv+
 						// "\nfadeTime: "+fadeTime+
 						// "\nactiveDivClass: "+activeDivClass);
 				//TODO: destroy previousDiv
-				if (previousDiv==activeDiv) {
+				if (previousDiv==activeDiv) { //we barely care about this case, when 
 					// document.getElementById("debug").innerHTML+=("return "+activeDiv+" "+previousDiv+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"); 
-					intervalHandle=setTimeout("updateMyContent();", interval );
+					intervalHandle=setTimeout("updateMyContent();", updateMyContentInterval );
 					return;
 				}
 				activeDivObj=$('#div'+activeDiv);
 				activeDivObj.addClass(activeDivClass);
 				activeDivObj.css({'z-index':2, "display":"block"});
 				// verticalCenter(activeDivObj);
-				if (previousDivObj!==undefined){
+				if (previousDivObj!==undefined){ 
 					// alert ("changing");
-					//Should multiple updates happen in the database while stopped, only the latest one will be considered.
+					//Should multiple updates happen in the server, only the latest will be considered.
 					previousDivObj.fadeOut(fadeTime,function(){
 						previousDivObj.css({"z-index":1, "display":"none"});
 						// alert(" "+previousDivClass);
@@ -67,18 +79,17 @@ function updateMyContent(){
 						previousDivObj=activeDivObj;
 						previousDivClass=activeDivClass;
 						previousDiv=activeDiv;
-						intervalHandle=setTimeout("updateMyContent();", interval );
+						intervalHandle=setTimeout("updateMyContent();", updateMyContentInterval );
 					});
 				}
-				else{
+				else{ //first call ! 
 					previousDiv=activeDiv;
 					previousDivObj=activeDivObj;
 					previousDivClass=activeDivClass;
 					activeDivObj.css({'z-index':3, "display":"block"});
-					intervalHandle=setTimeout("updateMyContent();", interval );
+					intervalHandle=setTimeout("updateMyContent();", updateMyContentInterval );
 				}
-			}
-			)
+			})
 		// });
 	}
 setTimeout("updateMyContent();", 200);
