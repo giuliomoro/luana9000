@@ -1,0 +1,6 @@
+<?php
+$dbuser="dbuser";
+$dbpassword="dbpassword";
+$dbhost="dbhost";
+$dbname="dbname";
+?>
