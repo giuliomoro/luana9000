@@ -2,82 +2,37 @@
 ; ------- Any modification in this file will invalidate the signature,
 ; ------- so that it cannot be opened in MT Player anymore.
 ;
-[MIDI.routes]
-In0=mLAN MIDI In
-Out0=mLAN MIDI Out
-
 [Preset.0]
 Name=web_server
-Active=0
+Active=1
 PresetSwitchIgnore=0
-DefaultInPorts=MIDA0001000CmLAN MIDI In
-Name0=pgm g0 -> null
-Incoming0=MID1CEpp
+DefaultInPorts=MIDA00020013Bome Virtual Port 10023Bome's Midi Translator 1 Virtual In
+Name0=initialize
+Incoming0=Pres080000
 Outgoing0=None
-Options0=Actv00Stop00OutO00
-Name1=CC1 g0 -> SCENA
-Incoming1=MID1BE01pp
-Outgoing1=ExF10033c:\program files\appserv\www\luana9000\mysqlset.bat000E%pp% %g0% %g1%
+Options0=Actv01Stop00OutO00StMa0014Initialize variables0003g0=500g1=0g2=0
+Name1=CC1 g0 -> SCENA-MSB
+Incoming1=MID1BE01g2
+Outgoing1=None
 Options1=Actv01Stop01OutO00StMa00000001if(pp==0)noexecute
-Name2=CC2 -> g0 FADETIME
-Incoming2=MID1BE02g0
-Outgoing2=None
-Options2=Actv01Stop01OutO00StMa0013convert cc1 to 0.1s0001g0=g0*100
-Name3=CC3 -> g1 CLASSE
-Incoming3=MID1BE03g1
+Name2=CC2  -> SCENA-LSB trigger
+Incoming2=MID1BE02pp
+Outgoing2=ExF10012..\bat\setData.bat000F%g3p% %g0% %g1%
+Options2=Actv01Stop01OutO00StMa00000003if(pp==0)noexecuteg3=g2*128g3=g3+pp
+Name3=CC12 -> g0 FADETIME
+Incoming3=MID1BE0Cpp
 Outgoing3=None
-Options3=Actv01Stop01OutO00
-Name4=KEY 0 = 110
-Incoming4=KAM11000KSQ10001030
-Outgoing4=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat00081 5000 3
-Options4=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name5=KEY 1 = 101
-Incoming5=KAM11000KSQ10001031
-Outgoing5=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat0009101 0 103
-Options5=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name6=KEY 2 = 102
-Incoming6=KAM11000KSQ10001032
-Outgoing6=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat0009102 0 102
-Options6=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name7=KEY 3 = 103
-Incoming7=KAM11000KSQ10001033
-Outgoing7=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat0009103 0 105
-Options7=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name8=KEY 4 = 104
-Incoming8=KAM11000KSQ10001034
-Outgoing8=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat0009104 0 104
-Options8=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name9=KEY 5 = 105
-Incoming9=KAM11000KSQ10001035
-Outgoing9=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat0009105 0 101
-Options9=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name10=KEY 6 = 106
-Incoming10=KAM11000KSQ10001036
-Outgoing10=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat000D106 %g0% %g1%
-Options10=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name11=KEY 7 = 107
-Incoming11=KAM11000KSQ10001037
-Outgoing11=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat000911 2000 3
-Options11=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name12=KEY 8 = 108
-Incoming12=KAM11000KSQ10001038
-Outgoing12=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat000912 2000 3
-Options12=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name13=KEY 9 = 109
-Incoming13=KAM11000KSQ10001039
-Outgoing13=ExF10033c:\program files\AppServ\www\luana9000\mysqlset.bat000913 2000 3
-Options13=Actv00Stop01OutO00StMa001Frealign pgmch value to cubase's0001pp=pp+1
-Name14=CC1 g0 -> SCENA
-Incoming14=MID1BE01pp
-Outgoing14=ExF10033c:\program files\appserv\www\luana9000\mysqlset.bat000B%pp% 2000 3
-Options14=Actv00Stop01OutO00
+Options3=Actv01Stop01OutO00StMa0017interprets cc12 as 0.1s0001g0=pp*100
+Name4=CC11-> g1 CLASSE
+Incoming4=MID1BE0Bg1
+Outgoing4=None
+Options4=Actv01Stop01OutO00
 
 [Preset.1]
 Name=light_server
 Active=0
 PresetSwitchIgnore=0
 DefaultInPorts=MIDA0001000CmLAN MIDI In
-DefaultOutPorts=MIDA00020013Bome Virtual Port 20024Bome's Midi Translator 2 Virtual Out
 Name0=set default variables
 Incoming0=EnDi02
 Outgoing0=None
@@ -157,7 +112,7 @@ Options18=Actv00Stop00OutO00StMa00000001h0=127
 
 [Preset.2]
 Name=smartphone
-Active=1
+Active=0
 PresetSwitchIgnore=0
 Name0=smartphone 1
 Incoming0=KAM11000KSQ10001053
@@ -166,12 +121,25 @@ Options0=Actv01Stop00OutO00
 
 [Preset.3]
 Name=proiettore
-Active=1
+Active=0
 PresetSwitchIgnore=0
 Name0=video 1
 Incoming0=KAM11000KSQ10001054
 Outgoing0=KAM11100KSQ10001053
 Options0=Actv01Stop00OutO00
+
+[Preset.4]
+Name=test_web_server
+Active=0
+PresetSwitchIgnore=0
+Name0=1 -> 1001
+Incoming0=KAM11000KSQ10001031
+Outgoing0=MID1BE0C05BE0107BE0269
+Options0=Actv01Stop00OutO00
+Name1=2 -> 1002
+Incoming1=KAM11000KSQ10001032
+Outgoing1=MID1BE0C01BE0107BE026A
+Options1=Actv01Stop00OutO00
 
 [Project]
 Version=2
@@ -179,9 +147,9 @@ Author=
 AuthorContact=
 Comments=
 DefaultInPorts=MIDA00020013Bome Virtual Port 10023Bome's Midi Translator 1 Virtual In
-DefaultOutPorts=MIDA00020013Bome Virtual Port 20024Bome's Midi Translator 2 Virtual Out
+DefaultOutPorts=MIDA0000
 
 [Signatures]
 SigName-1=[Midi Translator Pro Internal]
-Signature-1=Suq+wMUncXf0JecwMFBUr/ai/Wn8obU29d1F5gTjuS9XmIjKny1iHBC8zn3ZgLHd7q16tzLxT+pRWQ3QVgCe+PmoxTvJltq3sgNk+d9RD2m1fXpRqemBcKc6hD+72iTGvdoXfLAOaB492zPriJr+6GUS67t8yWlJYIA1FBQ8390=
+Signature-1=p/QPnniPUgODFYeHceTto19ZrL+0u6sJdZ8lO+bABiDNSJLpvwoHwhz/qjwmlbwHqG6HZaYb81MoFdOwCoaVFyw7WwIKpQOuDZqSkEm/bIYlKt3I2ND2EpomW2en/ZukkKAf3QCwv0j+5JvGlliexYbZmQus7KKZSpy5/hL6gwk=
 SignedBy-1=Frank Libero
