@@ -17,7 +17,7 @@
 	$data_source_file = 'data.txt';
 // main loop
 	$sleepTime=200000;
-	while (true) {
+	//~ while (true) { // this would make it spin forever!
 	//big issue here is that the time resolution of this is 1s
 		// if ajax request has send a timestamp, then $last_ajax_call = timestamp, else $last_ajax_call = null
 		$last_ajax_call = isset($_GET['timestamp']) ? (int)$_GET['timestamp'] : null;
@@ -43,10 +43,10 @@
 				'fadeTime='.$fadetime.';'.
 				'var activeDivClass='.$class.';'.
 				'timestamp='.$timestamp.';';	
-			break;
+			//~ break;
 		} else {
-			usleep( $sleepTime );
-			continue;
+			//~ usleep( $sleepTime );
+			//~ continue;
 		}
-	}
+	//~ }
 ?>
