@@ -6,6 +6,9 @@ Many improvements would be welcome, e.g.:
 - use node+json  or node+mysql instead of php+mysql
 - use https://github.com/justinlatimer/node-midi to handle midi from the node webserver, thus getting rid of Bome's altogether
 
-Responds to CC1(lsb) and CC2(msb) for scene selection, CC11 for class selection (unused), CC12 for fade time (expressed in 0.1s , e.g.: a value of 8 is 800ms).
-Sending a CC2 triggers the selection of a new scene.
+Responds to control changes received on MIDI channel 15:
+- CC1(lsb) and CC2(msb) for scene selection
+- CC11 for class selection (unused)
+- CC12 for fade time (expressed in 0.1s , e.g.: a value of 8 is 800ms).
 Values of CC1, CC11, CC12 are persistent (stored in Bome's global variables)
+Sending a CC2 triggers the selection of a new scene.
